@@ -8,7 +8,7 @@ const jobSchema = new mongoose.Schema({
     category: {type: String},
     type: {
         type: String,
-        enum: ['Remote, Full-time', 'Part-Time', "Intership", "Contract"],
+        enum: ['Remote', 'Full-Time', 'Part-Time', "Intership", "Contract"],
         required: true
     },
     company: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true}, //Employer
@@ -17,4 +17,4 @@ const jobSchema = new mongoose.Schema({
     isClosed: {type: Boolean, default: false}
 }, {timestamps: true});
 
-module.export = mongoose.model("Job", jobSchema)
+module.exports = mongoose.model("Job", jobSchema)

@@ -11,4 +11,4 @@ const applicationSchema = new mongoose.Schema({
     }
 }, {timestamps: true})
 
-module.exports = mongose.model('Application', applicationSchema)
+module.exports = mongoose.model('Application', applicationSchema)

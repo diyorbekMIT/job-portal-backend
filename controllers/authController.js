@@ -9,8 +9,8 @@ const generateToken = (id) => {
 // @desc    Register a new user
 exports.register = async (req, res) => {
     try{
-        const {username, email, password, avatar, role} = req.body;
-        if(!username || !email || !password) {
+        const {name, email, password, avatar, role} = req.body;
+        if(!name || !email || !password) {
             return res.status(400).json({message: 'Please provide all fields'})
         }
         
@@ -18,11 +18,11 @@ exports.register = async (req, res) => {
         if(userExists) {
             return res.status(400).json({message: 'User already exists'})
         }
-        const user = await User.create({username, email, password, avatar, role});
+        const user = await User.create({name, email, password, avatar, role});
         if(user) {
             res.status(201).json({
                 _id: user._id,
-                username: user.username,
+                name: user.name,
                 email: user.email,
                 avatar: user.avatar,
                 role: user.role,
@@ -49,8 +49,8 @@ exports.login = async (req, res) => {
             return res.status(400).json({message: 'Please provide all fields'})
         }
 
-        const user = User.findOne({email});
-        if(!user || !(await user.mattchPassord(password))){
+        const user = await  User.findOne({email});
+        if(!user || !(await user.matchPassword(password))){
             res.status(400).json({message: 'Invalid email or password'})
         }
 
@@ -73,6 +73,6 @@ exports.login = async (req, res) => {
     }
 }
 
-exports.getMe('/me', async (req, res) => {
-    res.json(req.user);
-})
+exports.getMe = async (req, res) => {
+    res.json(req.user)
+}
